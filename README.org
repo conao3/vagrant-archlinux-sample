@@ -19,11 +19,38 @@
   - [[#author][Author]]
 
 * Description
-Vagrant Arch Linux sample.
-
-* Install
+Vagrant Arch Linux sample.  Arch Linux box is builded with [[https://github.com/elasticdog/packer-arch][packer-arch]].
 
 * Usage
+#+begin_src sh
+cd packer-arch
+packer build -only=virtualbox-iso arch-template.json
+
+OUTPUT_VERSION=2021.02.01
+VERSION=20210201
+vagrant box add archlinux-$VERSION output/packer_arch_virtualbox-$OUTPUT_VERSION.box
+# vagrant init archlinux-$VERSION
+vagrant up
+
+# Now you can use vagranted Archlinux!
+vagrant ssh-config >> ~/.ssh/config
+ssh default
+#+end_src
+
+* Development
+** Requirements
+- [[https://www.vagrantup.com/][vagrant]] - 2.2.14
+  - [[https://www.virtualbox.org/][virtualbox]] - 6.1.16
+- [[https://www.packer.io/][packer]] - 1.6.5
+
+*** Quick install
+#+begin_src sh
+# vagrant, packer
+yay -S linux-headers
+yay -S virtualbox-host-dkms
+yay -S virtualbox
+yay -S vagrant packer
+#+end_src
 
 * Information
 ** Community
