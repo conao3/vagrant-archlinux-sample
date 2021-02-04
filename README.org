@@ -29,6 +29,8 @@ packer build -only=virtualbox-iso arch-template.json
 OUTPUT_VERSION=2021.02.01
 VERSION=20210201
 vagrant box add archlinux-$VERSION output/packer_arch_virtualbox-$OUTPUT_VERSION.box
+
+cd ../
 # vagrant init archlinux-$VERSION
 vagrant up
 
