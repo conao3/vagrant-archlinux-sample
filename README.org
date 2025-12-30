@@ -1,75 +1,77 @@
+#+title: vagrant-archlinux-sample
 #+author: conao3
-#+date: <2020-03-20 Fri>
 
-[[https://github.com/conao3/vagrant-archlinux-sample][https://raw.githubusercontent.com/conao3/files/master/blob/headers/png/vagrant-archlinux-sample.png]]
 [[https://github.com/conao3/vagrant-archlinux-sample/blob/master/LICENSE][https://img.shields.io/github/license/conao3/vagrant-archlinux-sample.svg?style=flat-square]]
 [[https://github.com/conao3/vagrant-archlinux-sample/releases][https://img.shields.io/github/tag/conao3/vagrant-archlinux-sample.svg?style=flat-square]]
-[[https://github.com/conao3/vagrant-archlinux-sample/actions][https://img.shields.io/badge/patreon-become%20a%20patron-orange.svg?logo=patreon&style=flat-square]]
-[[https://twitter.com/conao_3][https://img.shields.io/badge/twitter-@conao__3-blue.svg?logo=twitter&style=flat-square]]
-[[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][https://img.shields.io/badge/chat-on_slack-blue.svg?logo=slack&style=flat-square]]
 
-* Table of Contents
-- [[#description][Description]]
-- [[#install][Install]]
-- [[#usage][Usage]]
-- [[#information][Information]]
-  - [[#community][Community]]
-  - [[#contribution][Contribution]]
-  - [[#license][License]]
-  - [[#author][Author]]
+* Overview
 
-* Description
-Vagrant Arch Linux sample.  Arch Linux box is builded with [[https://github.com/elasticdog/packer-arch][packer-arch]].
+A ready-to-use Vagrant configuration for spinning up Arch Linux virtual machines. This project uses [[https://github.com/elasticdog/packer-arch][packer-arch]] to build custom Arch Linux boxes.
 
-* Usage
+* Prerequisites
+
+| Tool       | Version  | Description                        |
+|------------+----------+------------------------------------|
+| VirtualBox | 6.1+     | Virtualization platform            |
+| Vagrant    | 2.2+     | Development environment management |
+| Packer     | 1.6+     | Machine image builder              |
+
+** Installing on Arch Linux
+
+#+begin_src sh
+yay -S linux-headers virtualbox-host-dkms virtualbox vagrant packer
+#+end_src
+
+* Getting Started
+
+** Building the Box
+
+First, build the Arch Linux box using Packer:
+
 #+begin_src sh
 cd packer-arch
 packer build -only=virtualbox-iso arch-template.json
+#+end_src
 
+** Adding the Box to Vagrant
+
+Register the built box with Vagrant:
+
+#+begin_src sh
 OUTPUT_VERSION=2021.02.01
 VERSION=20210201
 vagrant box add archlinux-$VERSION output/packer_arch_virtualbox-$OUTPUT_VERSION.box
+#+end_src
 
-cd ../
-# vagrant init archlinux-$VERSION
+** Starting the VM
+
+#+begin_src sh
 vagrant up
+#+end_src
 
-# Now you can use vagranted Archlinux!
+** Connecting via SSH
+
+Once the VM is running, you can connect to it:
+
+#+begin_src sh
+vagrant ssh
+#+end_src
+
+Or add it to your SSH config for direct access:
+
+#+begin_src sh
 vagrant ssh-config >> ~/.ssh/config
 ssh default
 #+end_src
 
-* Development
-** Requirements
-- [[https://www.vagrantup.com/][vagrant]] - 2.2.14
-  - [[https://www.virtualbox.org/][virtualbox]] - 6.1.16
-- [[https://www.packer.io/][packer]] - 1.6.5
+* Contributing
 
-*** Quick install
-#+begin_src sh
-# vagrant, packer
-yay -S linux-headers
-yay -S virtualbox-host-dkms
-yay -S virtualbox
-yay -S vagrant packer
-#+end_src
+Contributions are welcome. Feel free to open an issue or submit a pull request.
 
-* Information
-** Community
-All feedback and suggestions are welcome!
+* License
 
-You can use github issues, but you can also use [[https://conao3-support.slack.com/join/shared_invite/enQtNjUzMDMxODcyMjE1LWUwMjhiNTU3Yjk3ODIwNzAxMTgwOTkxNmJiN2M4OTZkMWY0NjI4ZTg4MTVlNzcwNDY2ZjVjYmRiZmJjZDU4MDE][Slack]]
-if you want a more casual conversation.
+MIT License. See [[file:LICENSE][LICENSE]] for details.
 
-** Contribution
-We welcome PR!
+* Author
 
-** License
-#+begin_example
-  MIT License
-  Copyright (c) Naoya Yamashita - https://conao3.com
-  https://github.com/conao3/vagrant-archlinux-sample/blob/master/LICENSE
-#+end_example
-
-** Author
-- Naoya Yamashita ([[https://github.com/conao3][conao3]])
+Naoya Yamashita ([[https://github.com/conao3][conao3]])
